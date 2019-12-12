@@ -46,7 +46,7 @@ def upload(request):
             ret = {'code': SUCCESS_CODE, 'message': SUCCESS_MESSAGE, 'urls': []}
             for fileName in files:
                 file = request.FILES.get(fileName)
-                if file.size > 50000:
+                if file.size > 5 * 1024 * 1024:
                     return JsonResponse({'code': FAILURE_CODE, 'message': SIZE_ERROR})
                 md5 = get_file_md5(file)
                 img_obj = models.UploadImage.objects.filter(imgMd5=md5)
